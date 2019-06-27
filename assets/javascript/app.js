@@ -86,7 +86,14 @@ function presentQuestion() {
 
 function randomOrder() {
     // return the digits 0 through 3 in a random order
-    return ("3210");
+    let regularOrder = "0123";
+    let newOrder = "";
+    while (regularOrder.length > 0) {
+        let index = Math.floor(Math.random() * regularOrder.length);
+        newOrder += regularOrder[index];
+        regularOrder = regularOrder.slice(0, index) + regularOrder.slice(index+1);
+    }
+    return newOrder;
 }
 
 function updateTimer() {
@@ -94,8 +101,9 @@ function updateTimer() {
     $("#communication").text("Time remaining: " + secondsLeft + " seconds");
     if (secondsLeft <= 0) {
         clearInterval(questionTimer); // stop timer countdown
+        timedOutAnswers++;
         $('#communication').text("Out of time! The correct answer is " + $('.answer[data-correct="true"]').text() + ".");
-    
+  
         showAnswer();
     }
 }
@@ -104,35 +112,43 @@ function checkAnswer () {
     clearTimeout(questionTimer);
 
     console.log("checkAnswer"); 
-  
-    // disable answer buttons
-    $(".answer").off("click");
-    $(".answer").removeClass("clickable"); // disable hover effects
 
     if ($(this).attr("data-correct") === 'true') {
         console.log("Correct!");
+        correctAnswers++;
         $("#communication").text("Correct!");
     }
     else {
         console.log("Wrong!");
+        wrongAnswers++;
         $("#communication").text("Wrong! The correct answer is " + $('.answer[data-correct="true"]').text() + ".");
     }
     showAnswer();
 }
 
 function showAnswer() {
-    
+    // disable answer buttons
+    $(".answer").off("click");
+    $(".answer").removeClass("clickable"); // disable hover effects
+
     if (questionIndex === questionBank.length-1) {
-        showScore();
+        setTimeout(showTotals, answerTime*1000);
     } else {
         questionIndex++; //next question
         setTimeout(presentQuestion, answerTime*1000);
     }
 }
 
-function showScore() {
+function showTotals() {
+    // clear the last question
+    $("#question").empty();
+    $("#answers-area").hide();
+   
     //show totals from the game
-
+    $("#communication").html("<p>All done! Let's see how you did:</p>")
+    $("#communication").append("<p>Correct answers: " + correctAnswers + " </p>")
+    $("#communication").append("<p>Wrong answers: " + wrongAnswers + " </p>")
+    $("#communication").append("<p>Unanswered: " + timedOutAnswers + " </p>")
     $("#start").text("Play again?");
     $("#start").show();
 }
@@ -146,7 +162,6 @@ window.onload = function() {
 
 if ($(document).ready()) {
   
-    
     initGame();
 
 }   
