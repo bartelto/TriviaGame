@@ -3,7 +3,6 @@
     padding: 5px;
 }
 
-.answer:hover,
-#start:hover {
-    background-color: lightgreen;
+.clickable:hover {
+    background-color: lightblue;
 }   

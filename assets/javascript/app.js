@@ -45,12 +45,13 @@ let questionBank = [
 
 function initGame() {
     $("#answers-area").hide();
+    $("#start").addClass("clickable");
     $("#start").show();
 }
 
 function startGame() {
     $("#start").hide();
-    $("#answers-area").show();
+
     correctAnswers = 0;
     wrongAnswers = 0;
     timedOutAnswers = 0;
@@ -66,13 +67,15 @@ function presentQuestion() {
     let order = randomOrder();
     $("#question").text(questionBank[questionIndex].question);
 
+    // set up answer buttons
     $(".answer").each(function(index, element) {
-        //console.log(element);
-        //console.log(index);
         let answer = questionBank[questionIndex].answers[order[index]];
         $(this).text(answer.replace("*","")); // removes * from the correct answer
-        $(this).attr("data-correct", answer.includes("*"));
+        $(this).attr("data-correct", answer.includes("*")); 
     }); 
+    $(".answer").click(checkAnswer);
+    $(".answer").addClass("clickable"); // enable hover effects
+    $("#answers-area").show();
 
     $("#communication").text("Time remaining: " + secondsLeft + " seconds");
     questionTimer = setInterval(updateTimer, 1000);
@@ -102,6 +105,10 @@ function checkAnswer () {
 
     console.log("checkAnswer"); 
   
+    // disable answer buttons
+    $(".answer").off("click");
+    $(".answer").removeClass("clickable"); // disable hover effects
+
     if ($(this).attr("data-correct") === 'true') {
         console.log("Correct!");
         $("#communication").text("Correct!");
@@ -132,7 +139,7 @@ function showScore() {
 
 window.onload = function() {
     $("#start").click(startGame);
-    $(".answer").click(checkAnswer);
+    //$(".answer").click(checkAnswer);
 }
 
 
