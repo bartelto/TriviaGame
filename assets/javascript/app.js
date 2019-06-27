@@ -2,7 +2,7 @@
 
 let questionIntervalId = ""; // for canceling the timer once the player selects an answer
 let questionIndex = 0; // for tracking which question we're on
-const questionTime = 5; // time question is shown, in seconds
+const questionTime = 10; // time question is shown, in seconds
 const answerTime = 3; // time answer is shown, in seconds
 let secondsLeft = 0; // counts down to zero
 let correctAnswers = 0;
@@ -121,7 +121,7 @@ function checkAnswer () {
     else {
         console.log("Wrong!");
         wrongAnswers++;
-        $("#communication").text("Wrong! The correct answer is " + $('.answer[data-correct="true"]').text() + ".");
+        $("#communication").html("Wrong! The correct answer is <strong>" + $('.answer[data-correct="true"]').text() + "</strong>.");
     }
     showAnswer();
 }
