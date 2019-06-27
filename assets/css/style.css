@@ -1,8 +1,9 @@
-.button {
+.answer, #start {
     border: 1px black solid;
     padding: 5px;
 }
 
-.button:hover {
+.answer:hover,
+#start:hover {
     background-color: lightgreen;
-}
+}   
