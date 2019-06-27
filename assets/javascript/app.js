@@ -46,15 +46,16 @@ let questionBank = [
 function initGame() {
     $("#answers-area").hide();
     $("#start").show();
-    correctAnswers = 0;
-    wrongAnswers = 0;
-    timedOutAnswers = 0;
-    questionIndex = 0;
 }
 
 function startGame() {
     $("#start").hide();
     $("#answers-area").show();
+    correctAnswers = 0;
+    wrongAnswers = 0;
+    timedOutAnswers = 0;
+    questionIndex = 0;
+
     presentQuestion();
 }
 
@@ -90,7 +91,8 @@ function updateTimer() {
     $("#communication").text("Time remaining: " + secondsLeft + " seconds");
     if (secondsLeft <= 0) {
         clearInterval(questionTimer); // stop timer countdown
-        $('#communication').text("Out of time!");
+        $('#communication').text("Out of time! The correct answer is " + $('.answer[data-correct="true"]').text() + ".");
+    
         showAnswer();
     }
 }
@@ -98,7 +100,7 @@ function updateTimer() {
 function checkAnswer () {
     clearTimeout(questionTimer);
 
-    console.log("checkAnswer");
+    console.log("checkAnswer"); 
   
     if ($(this).attr("data-correct") === 'true') {
         console.log("Correct!");
@@ -106,7 +108,7 @@ function checkAnswer () {
     }
     else {
         console.log("Wrong!");
-        $("#communication").text("Wrong! The correct answer is " + $('.answer[data-correct="true"]').text());
+        $("#communication").text("Wrong! The correct answer is " + $('.answer[data-correct="true"]').text() + ".");
     }
     showAnswer();
 }
@@ -124,6 +126,7 @@ function showAnswer() {
 function showScore() {
     //show totals from the game
 
+    $("#start").text("Play again?");
     $("#start").show();
 }
 
