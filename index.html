@@ -13,16 +13,21 @@
         crossorigin="anonymous"></script>
 </head>
 <body>
-    <img id="logo" src="assets/images/BTTF-Logo.png">
-    <h1>Trivia Challenge</h1>
-    <div id="communication"></div>  
-    <div id="start">Start</div>
-    <div id="question"></div>
-    <div id="answers-area">
-        <div class="answer" data-correct="false"></div>
-        <div class="answer" data-correct="false"></div>
-        <div class="answer" data-correct="false"></div>
-        <div class="answer" data-correct="false"></div>
+    <div id="needle"></div> 
+    <header>
+        <img id="logo" src="assets/images/BTTF-Logo.png">
+        <h1>Trivia Challenge</h1>
+    </header>  
+    <div id="game-area">
+        <div id="communication"></div>  
+        <div id="start"><p>Start</p></div>
+        <div id="question"></div>   
+        <div id="answers-area">
+            <div class="answer" data-correct="false"></div>
+            <div class="answer" data-correct="false"></div>
+            <div class="answer" data-correct="false"></div>
+            <div class="answer" data-correct="false"></div>
+        </div>
     </div>
     <script src="assets/javascript/app.js"></script>
 </body>

@@ -2,13 +2,17 @@ body {
     background-color: black;
     background-image: url("../images/Speedometer.jpg");
     background-repeat: no-repeat;
-    background-position: center 100px;
-
+    background-position: center top;
     color: white;
-    width: 720px;   
-    margin-left: auto;  
+    width: 720px;       
+    margin-left: auto;      
     margin-right: auto; 
     font-family: "Century Gothic", sans-serif       
+}
+
+header {
+    position: relative;
+    min-height: 400px;
 }
 
 #logo {
@@ -19,7 +23,11 @@ h1 {
     font-size: 40px;        
     text-align: right;
     text-emphasis: bold;
-    top: 100px;
+    top: 100px; 
+}
+
+#game-area {
+    background-color:rgb(0,0,0,0.8);
 }
 
 #communication,
@@ -41,17 +49,125 @@ h1 {
     text-align: center;
     padding: 10px;  
     font-size: 24px;
-    background-color: black;    
 }
 
 #start:hover,
 .clickable:hover {
-    background-color: lightblue;
-    background-color: orange;
+    
+    background-image:linear-gradient(red, yellow);
     color: black;
     cursor: pointer;
+    /*filter: blur(8px);
+    -webkit-filter: blur(8px);*/
 }   
 
 strong {
     text-transform: uppercase;
 }
+
+
+
+#needle {
+    position: relative;
+    right: -308px;
+    bottom: -275px;
+    width: 0px;
+    height: 0px;
+    border-right: 260px solid transparent;
+    border-top: 8px solid transparent;
+    border-bottom: 16px solid gray; 
+    transform-origin:    25px 24px;
+    /*animation: accel2 3s ease-in-out 1 forwards;*/
+    filter: blur(2px);
+    -webkit-filter: blur(2px)
+}
+
+#needle:after {
+    content: "";
+    position: absolute; 
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 16px solid #1C2833;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+}
+#needle:before {
+    content: "";
+    position: absolute; 
+    right: -260px;
+    bottom: -40px;
+    width: 0px;
+    height: 0px;
+    border-right: 260px solid transparent;
+    border-top: 16px solid ghostwhite;
+    border-bottom: 8px solid transparent;
+}
+
+.accelerate1 { animation: accel1 3s ease-in-out 1 forwards; }
+.accelerate2 { animation: accel2 3s ease-in-out 1 forwards; }
+.accelerate3 { animation: accel3 3s ease-in-out 1 forwards; }
+.accelerate4 { animation: accel4 3s ease-in-out 1 forwards; }
+.accelerate5 { animation: accel5 3s ease-in-out 1 forwards; }
+.accelerate6 { animation: accel6 3s ease-in-out 1 forwards; }
+.accelerate7 { animation: accel7 3s ease-in-out 1 forwards; }
+.accelerate8 { animation: accel8 3s ease-in-out 1 forwards; }
+
+@keyframes accel1 {
+    0%  {   transform: rotate(-240deg);   }
+    60% {   transform: rotate(-200deg);   }
+    90% {   transform: rotate(-210deg);   }
+    100%{   transform: rotate(-210deg);   }
+}
+
+@keyframes accel2 {
+    0%  {   transform: rotate(-210deg);   }
+    60% {   transform: rotate(-170deg);   }
+    90% {   transform: rotate(-180deg);   }
+    100%{   transform: rotate(-180deg);   }
+}               
+  
+@keyframes accel3 {
+    0%  {   transform: rotate(-180deg);   }
+    60% {   transform: rotate(-140deg);   }
+    90% {   transform: rotate(-150deg);   }
+    100%{   transform: rotate(-150deg);   }
+} 
+
+@keyframes accel4 {
+    0%  {   transform: rotate(-150deg);   }
+    60% {   transform: rotate(-110deg);   }
+    90% {   transform: rotate(-120deg);   }
+    100%{   transform: rotate(-120deg);   }
+} 
+
+@keyframes accel5 {
+    0%  {   transform: rotate(-120deg);   }
+    60% {   transform: rotate(-80deg);   }
+    90% {   transform: rotate(-90deg);   }
+    100%{   transform: rotate(-90deg);   }
+} 
+
+@keyframes accel6 {
+    0%  {   transform: rotate(-90deg);   }
+    60% {   transform: rotate(-50deg);   }
+    90% {   transform: rotate(-60deg);   }
+    100%{   transform: rotate(-60deg);   }
+} 
+  
+@keyframes accel7 {
+    0%  {   transform: rotate(-60deg);   }
+    60% {   transform: rotate(-20deg);   }
+    90% {   transform: rotate(-30deg);   }
+    100%{   transform: rotate(-30deg);   }
+} 
+
+@keyframes accel8 {
+    0%  {   transform: rotate(-30deg);   }
+    30% {   transform: rotate(0deg);     }
+    60% {   transform: rotate(-10deg);   }
+    100%{   transform: rotate(10deg);    }
+} 
+
+

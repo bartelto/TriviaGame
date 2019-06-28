@@ -12,33 +12,103 @@ let timedOutAnswers = 0;
 
 let questionBank = [
     {
-        question: "What is your name?",
+        question: "What is the name of Doc Brown's dog?",
         answers: 
             [
-                "*Todd Bartelt",
-                "Jim Carrey",
-                "Frank Miller",
-                "Bob Hoskins"
+                "*Einstein",
+                "Marley",
+                "Wilby",
+                "Colonel"
             ]
     }, 
     {
-        question: "What is your age?",
+        question: "What date in the past does Marty accidentally travel to?",
         answers: 
             [
-                "*44",
-                "55",
-                "33",
-                "53"
+                "*November 12, 1955",
+                "October 26, 1955",
+                "December 12, 1926",
+                "October 26, 1975"
             ]
     },
     {
-        question: "What is your dog's name?",
+        question: "What nationality are the terrorists from whom Doc Brown stole the plutonium needed to power the time machine?",
         answers: 
             [
-                "*Tango",
-                "Rango",
-                "Cash",
-                "Johnny"
+                "*Libyan",
+                "Lithuanian",
+                "Syrian",
+                "South African"
+            ]
+    },
+    {
+        question: "What is the name of the uncle who Marty finds is still a baby in a playpen back in 1955?",
+        answers: 
+            [
+                "*Joey",
+                "Jimmy",
+                "Jerry",
+                "Jack"
+            ]
+    },
+    {
+        question: "Who directed Back to the Future?",
+        answers: 
+            [
+                "*Robert Zemekis",
+                "Steven Spielberg",
+                "Christopher Lloyd",
+                "Calvin Klein"
+            ]
+    },
+    {
+        question: "What speed does the DeLorean need to achieve to travel through time?",
+        answers: 
+            [
+                "*88 miles per hour",
+                "77 miles per hour",
+                "60 miles per hour",
+                "1.21 miles per hour"
+            ]
+    },
+    {
+        question: "What is Marty McFly's dream set of wheels?",
+        answers: 
+            [
+                "*Toyota SR5 Xtra Cab",
+                "Chevy Corvette",
+                "Chevy Camaro IROC-Z",
+                "DeLorean DMC-12"
+            ]
+    },
+    {
+        question: "What are the names of Marty's parents?",
+        answers: 
+            [
+                "*Lorraine and George",
+                "Linda and John",
+                "Gracie and George",
+                "Yoko and John"
+            ]
+    },
+    {
+        question: "How did Doc Brown hit his head the day he came up with the idea of the flux capacitor?",
+        answers: 
+            [
+                "*He was standing on a toilet to hang a clock, and he fell.",
+                "He was was working on his car when the hood fell on him.",
+                "He was climbing a tree to watch the girl next door, but he fell and was hit by a car.",
+                "He fell off the roof."
+            ]
+    },
+    {
+        question: "What Chuck Berry song did Marty rock out to at the Enchantment Under the Sea dance?",
+        answers: 
+            [
+                "*Johnny B. Goode",
+                "Maybellene",
+                "Roll Over Beethoven",
+                "Sweet Little Sixteen"
             ]
     }
 ];
@@ -47,6 +117,8 @@ function initGame() {
     $("#answers-area").hide();
     $("#start").addClass("clickable");
     $("#start").show();
+    $("#needle").hide();
+    //$("header").hide();
 }
 
 function startGame() {
@@ -61,7 +133,12 @@ function startGame() {
 }
 
 function presentQuestion() {
-    //console.log("Q: " + q.question);
+    //console.log("Q: " + q.question);  
+
+    //hide needle and show logo
+    $("#needle").hide();
+    $("header").children().show();
+    
     console.log("presentQuestion");
     secondsLeft = questionTime;
     let order = randomOrder();
@@ -130,6 +207,12 @@ function showAnswer() {
     // disable answer buttons
     $(".answer").off("click");
     $(".answer").removeClass("clickable"); // disable hover effects
+
+    //show speedometer needle
+    $("#needle").removeClass();
+    $("#needle").addClass("accelerate" + correctAnswers);
+    $("header").children().hide();
+    $("#needle").show();
 
     if (questionIndex === questionBank.length-1) {
         setTimeout(showTotals, answerTime*1000);
