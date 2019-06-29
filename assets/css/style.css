@@ -61,20 +61,23 @@ h1 {
 
 .answer, #start {   
     
-    padding: 5px;
     text-align: center;
-    padding: 10px;  
     font-size: 28px;
+    -webkit-transition-property: font-size, padding; /* Safari */
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-property: font-size;
+    transition-duration: 0.5s;
+    height: 48px;
 }
 
 #start:hover,
 .clickable:hover {
     
-    background-image:linear-gradient(red, yellow);
-    color: black;
+    /*background-image:linear-gradient(red, yellow);
+    color: black;*/
     cursor: pointer;
-    /*filter: blur(8px);
-    -webkit-filter: blur(8px);*/
+    font-size: 36px;
+    color: yellow;
 }   
 
 strong {
@@ -214,8 +217,6 @@ strong {
         width: 100%;
         background-size: 650px;
     }
-
-    
 
     h1 {
         font-size: 30px;

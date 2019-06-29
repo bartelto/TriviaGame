@@ -117,7 +117,8 @@ function initGame() {
     $("#answers-area").hide();
     $("#start").addClass("clickable");
     $("#start").show();
-    $("#needle").hide();
+    $("#needle").addClass("hide-logo");
+    //$("#needle").hide();
     //$("header").hide();
 }
 
@@ -137,7 +138,8 @@ function presentQuestion() {
 
     //hide needle and show logo
     $("body").removeClass("full-opacity");
-    $("#needle").hide();
+    //$("#needle").hide();
+    $("#needle").addClass("hide-logo");
     $("header").children().show();
     
     console.log("presentQuestion");
