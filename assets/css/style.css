@@ -79,8 +79,8 @@ strong {
     border-bottom: 16px solid gray; 
     transform-origin:    25px 24px;
     /*animation: accel2 3s ease-in-out 1 forwards;*/
-    filter: blur(2px);
-    -webkit-filter: blur(2px)
+    filter: blur(1px);
+    -webkit-filter: blur(1px)
 }
 
 #needle:after {
@@ -171,4 +171,19 @@ strong {
     100%{   transform: rotate(10deg);    }
 } 
 
+@media screen and (max-width: 980px) {
+    
+    .main-content, 
+    .header {
+        width: 748px;
+    }
 
+}
+
+@media screen and (max-width: 720px) {
+    
+    body {
+        width: 100%
+    }
+
+}
