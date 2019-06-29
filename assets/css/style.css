@@ -1,29 +1,44 @@
 body {
-    background-color: black;
-    background-image: url("../images/Speedometer.jpg");
-    background-repeat: no-repeat;
-    background-position: center top;
+    background: 
+        linear-gradient(to right, transparent, black 40%, black 60%, transparent),
+        url("../images/Speedometer.jpg") no-repeat top center,
+        black;
     color: white;
     width: 720px;       
     margin-left: auto;      
     margin-right: auto; 
-    font-family: "Century Gothic", sans-serif       
+    font-family: "Didact Gothic", sans-serif;   
+    position: relative   
+}
+
+
+.full-opacity {
+    background: 
+        url("../images/Speedometer.jpg") no-repeat top center,
+        black;
 }
 
 header {
     position: relative;
-    min-height: 400px;
 }
 
 #logo {
-    width: 100%;
+    width: 100%;   
+    margin-top: 30px; 
 }
 
 h1 {
-    font-size: 40px;        
+    font-size: 60px;        
     text-align: right;
-    text-emphasis: bold;
-    top: 100px; 
+    text-emphasis: bolder;
+    bottom: 0px; 
+    right: 0;
+    position: absolute;
+
+}
+
+.hide-logo {
+    opacity: 0;
 }
 
 #game-area {
@@ -34,7 +49,7 @@ h1 {
 #question { 
     text-align: center;
     padding: 10px;
-    font-size: 20px;
+    font-size: 24px;
 }
 
 #answers-area {
@@ -49,7 +64,7 @@ h1 {
     padding: 5px;
     text-align: center;
     padding: 10px;  
-    font-size: 24px;
+    font-size: 28px;
 }
 
 #start:hover,
@@ -184,6 +199,10 @@ strong {
     
     body {
         width: 100%
+    }
+
+    h1 {
+        font-size: 40px;
     }
 
 }

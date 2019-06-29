@@ -2,7 +2,7 @@
 
 let questionIntervalId = ""; // for canceling the timer once the player selects an answer
 let questionIndex = 0; // for tracking which question we're on
-const questionTime = 10; // time question is shown, in seconds
+const questionTime = 100; // time question is shown, in seconds
 const answerTime = 3; // time answer is shown, in seconds
 let secondsLeft = 0; // counts down to zero
 let correctAnswers = 0;
@@ -136,6 +136,7 @@ function presentQuestion() {
     //console.log("Q: " + q.question);  
 
     //hide needle and show logo
+    $("body").removeClass("full-opacity");
     $("#needle").hide();
     $("header").children().show();
     
@@ -209,9 +210,10 @@ function showAnswer() {
     $(".answer").removeClass("clickable"); // disable hover effects
 
     //show speedometer needle
+    $("body").addClass("full-opacity");
     $("#needle").removeClass();
     $("#needle").addClass("accelerate" + correctAnswers);
-    $("header").children().hide();
+    $("header").addClass("hide-logo")
     $("#needle").show();
 
     if (questionIndex === questionBank.length-1) {
