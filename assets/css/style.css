@@ -223,3 +223,10 @@ strong {
     }
 
 }
+
+@media (hover: none) {
+    .clickable:hover {
+        font-size: inherit;
+        color: inherit;
+    }
+}
