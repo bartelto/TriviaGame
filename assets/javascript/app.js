@@ -8,6 +8,7 @@ let secondsLeft = 0; // counts down to zero
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let timedOutAnswers = 0;
+let audio = new Audio("assets/audio/09 Delorean Time Machine Door.mp3");
 
 
 let questionBank = [
@@ -92,13 +93,13 @@ let questionBank = [
             ]
     },
     {
-        question: "How did Doc Brown hit his head the day he came up with the idea of the flux capacitor?",
+        question: "What was Doc Brown doing when he hit his head and came up with the idea for the flux capacitor?",
         answers: 
             [
-                "*He was standing on a toilet to hang a clock, and he fell.",
-                "He was was working on his car when the hood fell on him.",
-                "He was climbing a tree to watch the girl next door, but he fell and was hit by a car.",
-                "He fell off the roof."
+                "*hanging a clock",
+                "working on his car",
+                "climbing a tree",
+                "taking a shower"
             ]
     },
     {
@@ -129,7 +130,7 @@ function startGame() {
     wrongAnswers = 0;
     timedOutAnswers = 0;
     questionIndex = 0;
-
+    audio.play();
     presentQuestion();
 }
 
@@ -216,7 +217,7 @@ function showAnswer() {
     $("#needle").removeClass();
     $("#needle").addClass("accelerate" + correctAnswers);
     $("header").addClass("hide-logo")
-    $("#needle").show();
+    
 
     if (questionIndex === questionBank.length-1) {
         setTimeout(showTotals, answerTime*1000);
