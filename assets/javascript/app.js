@@ -8,7 +8,9 @@ let secondsLeft = 0; // counts down to zero
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let timedOutAnswers = 0;
-let audio = new Audio("assets/audio/09 Delorean Time Machine Door.mp3");
+let audioDoor = new Audio("assets/audio/09 Delorean Time Machine Door.mp3");
+let audio88mph = new Audio("assets/audio/10 Delorean-Back To the Future (Impersonation).mp3");
+let audioEnd = new Audio("assets/audio/35 End Logo (Alternate).mp3");
 
 
 let questionBank = [
@@ -130,7 +132,7 @@ function startGame() {
     wrongAnswers = 0;
     timedOutAnswers = 0;
     questionIndex = 0;
-    audio.play();
+    audioDoor.play();
     presentQuestion();
 }
 
@@ -217,6 +219,11 @@ function showAnswer() {
     $("#needle").removeClass();
     $("#needle").addClass("accelerate" + correctAnswers);
     $("header").addClass("hide-logo")
+
+    if (correctAnswers - wrongAnswers === 8) {
+        // reached 88 miles per hour!
+        audio88mph.play();
+    }
     
 
     if (questionIndex === questionBank.length-1) {
@@ -228,6 +235,8 @@ function showAnswer() {
 }
 
 function showTotals() {
+    audioEnd.play();
+    
     // clear the last question
     $("#question").empty();
     $("#answers-area").hide();

@@ -47,10 +47,14 @@ h1 {
 }
 
 #communication,
-#question { 
+#question {     
     text-align: center;
     padding: 10px;
     font-size: 24px;
+}
+
+#question {
+    border-bottom: solid 1px orange;
 }
 
 #answers-area {
@@ -220,7 +224,7 @@ strong {
     }
 
 
-    
+
     h1 {
         font-size: 30px;
     }
