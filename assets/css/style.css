@@ -49,11 +49,13 @@ h1 {
 #communication,
 #question {     
     text-align: center;
-    padding: 10px;
     font-size: 24px;
+    line-height: 24px;
 }
 
 #question {
+    padding-bottom: 20px;
+    padding-top: 20px;
     border-bottom: solid 1px orange;
 }
 
@@ -62,17 +64,25 @@ h1 {
     width: auto;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .answer, #start {   
-    
     text-align: center;
     font-size: 28px;
-    -webkit-transition-property: font-size, padding; /* Safari */
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-property: font-size;
-    transition-duration: 0.5s;
     height: 48px;
+    min-width:  250px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    line-height: 45px;
+}
+
+.clickable {
+    -webkit-transition-property: font-size, padding; /* Safari */
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-property: font-size;
+    transition-duration: 0.3s;
 }
 
 #start:hover,
@@ -81,9 +91,15 @@ h1 {
     /*background-image:linear-gradient(red, yellow);
     color: black;*/
     cursor: pointer;
-    font-size: 36px;
+    font-size: 36px;    
     color: yellow;
+    line-height: 42px;
 }   
+
+.correct {
+    font-size: 36px;
+    color: orange;
+}
 
 strong {
     text-transform: uppercase;
@@ -101,9 +117,11 @@ strong {
     border-top: 8px solid transparent;
     border-bottom: 16px solid gray; 
     transform-origin:    25px 24px;
+    transform: rotate(-240deg); 
     /*animation: accel2 3s ease-in-out 1 forwards;*/
     filter: blur(1px);
-    -webkit-filter: blur(1px)
+    -webkit-filter: blur(1px);
+    
 }
 
 #needle:after {
@@ -137,6 +155,12 @@ strong {
 .accelerate6 { animation: accel6 3s ease-in-out 1 forwards; }
 .accelerate7 { animation: accel7 3s ease-in-out 1 forwards; }
 .accelerate8 { animation: accel8 3s ease-in-out 1 forwards; }
+
+.decelerate0 { animation: decel1 2s ease-in-out 1 forwards; }
+.decelerate1 { animation: decel2 3s ease-in-out 1 forwards; }
+.decelerate2 { animation: decel3 3s ease-in-out 1 forwards; }
+
+
 
 @keyframes accel1 {
     0%  {   transform: rotate(-240deg);   }
@@ -193,6 +217,21 @@ strong {
     60% {   transform: rotate(-10deg);   }
     100%{   transform: rotate(10deg);    }
 } 
+
+@keyframes decel1 {
+    0%  {   transform: rotate(-210deg);   }
+    100%{   transform: rotate(-240deg);   }
+}
+
+@keyframes decel2 {
+    0%  {   transform: rotate(-180deg);   }
+    100%{   transform: rotate(-210deg);   }
+}
+
+@keyframes decel3 {
+    0%  {   transform: rotate(-150deg);   }
+    100%{   transform: rotate(-180deg);   }
+}
 
 @media screen and (max-width: 980px) {
     

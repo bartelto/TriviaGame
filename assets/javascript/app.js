@@ -45,7 +45,7 @@ let questionBank = [
             ]
     },
     {
-        question: "What is the name of the uncle who Marty finds is still a baby in a playpen back in 1955?",
+        question: "What is the name of Marty's jailbird uncle, who's still a baby back in 1955?",
         answers: 
             [
                 "*Joey",
@@ -95,7 +95,7 @@ let questionBank = [
             ]
     },
     {
-        question: "What was Doc Brown doing when he hit his head and came up with the idea for the flux capacitor?",
+        question: "What was Doc Brown doing right before he hit his head and came up with the idea for the flux capacitor?",
         answers: 
             [
                 "*hanging a clock",
@@ -140,10 +140,14 @@ function presentQuestion() {
     //console.log("Q: " + q.question);  
 
     //hide needle and show logo
-    $("body").removeClass("full-opacity");
+    //$("body").removeClass("full-opacity");
     //$("#needle").hide();
-    $("#needle").addClass("hide-logo");
-    $("header").children().show();
+    //$("#needle").addClass("hide-logo");
+    //$("header").children().show();
+
+    $("header").addClass("hide-logo");
+    $("#needle").removeClass("hide-logo");
+    $("body").addClass("full-opacity");
     
     console.log("presentQuestion");
     secondsLeft = questionTime;
@@ -153,6 +157,7 @@ function presentQuestion() {
     // set up answer buttons
     $(".answer").each(function(index, element) {
         let answer = questionBank[questionIndex].answers[order[index]];
+        $(this).removeClass("correct");
         $(this).text(answer.replace("*","")); // removes * from the correct answer
         $(this).attr("data-correct", answer.includes("*")); 
     }); 
@@ -196,29 +201,35 @@ function checkAnswer () {
 
     console.log("checkAnswer"); 
 
+    //show speedometer needle
+    $("body").addClass("full-opacity");
+    $("#needle").removeClass();
+
     if ($(this).attr("data-correct") === 'true') {
         console.log("Correct!");
         correctAnswers++;
         $("#communication").text("Correct!");
+        $("#needle").addClass("accelerate" + (correctAnswers-wrongAnswers));
     }
     else {
         console.log("Wrong!");
         wrongAnswers++;
         $("#communication").html("Wrong! The correct answer is <strong>" + $('.answer[data-correct="true"]').text() + "</strong>.");
+        if (correctAnswers >= wrongAnswers) {
+            $("#needle").addClass("decelerate" + (correctAnswers-wrongAnswers));
+        }
     }
+
+    // disable answer buttons
+    $(".answer").off("click");
+    $(".answer").removeClass("clickable"); // disable hover effects
+    
     showAnswer();
 }
 
 function showAnswer() {
-    // disable answer buttons
-    $(".answer").off("click");
-    $(".answer").removeClass("clickable"); // disable hover effects
-
-    //show speedometer needle
-    $("body").addClass("full-opacity");
-    $("#needle").removeClass();
-    $("#needle").addClass("accelerate" + correctAnswers);
-    $("header").addClass("hide-logo")
+    
+    $('.answer[data-correct="true"]').addClass("correct");
 
     if (correctAnswers - wrongAnswers === 8) {
         // reached 88 miles per hour!
