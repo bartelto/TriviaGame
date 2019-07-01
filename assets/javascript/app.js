@@ -133,21 +133,19 @@ function startGame() {
     timedOutAnswers = 0;
     questionIndex = 0;
     audioDoor.play();
-    presentQuestion();
+    $("header")
+        .animate( { left: "-=100"}, 300) 
+        .animate( { left: "+=2000"}, 1000)
+        .animate( { opacity: 0} )
+        .animate( { left: "-=1900"}, presentQuestion);
+
 }
 
 function presentQuestion() {
-    //console.log("Q: " + q.question);  
-
-    //hide needle and show logo
-    //$("body").removeClass("full-opacity");
-    //$("#needle").hide();
-    //$("#needle").addClass("hide-logo");
-    //$("header").children().show();
-
     $("header").addClass("hide-logo");
     $("#needle").removeClass("hide-logo");
     $("body").addClass("full-opacity");
+    
     
     console.log("presentQuestion");
     secondsLeft = questionTime;
@@ -237,7 +235,7 @@ function showAnswer() {
     }
     
 
-    if (questionIndex === questionBank.length-1) {
+    if (true || questionIndex === questionBank.length-1) {
         setTimeout(showTotals, answerTime*1000);
     } else {
         questionIndex++; //next question
@@ -247,18 +245,28 @@ function showAnswer() {
 
 function showTotals() {
     audioEnd.play();
-    
+
     // clear the last question
     $("#question").empty();
     $("#answers-area").hide();
+    $("header").removeClass("hide-logo");
+    $("#needle").addClass("hide-logo");
+    $("body").removeClass("full-opacity");
+
+    $("header")
+        .animate( { left: "-2000"} ) 
+        .animate( { opacity: 1 } )
+        .animate( { left: "+=2100"}, 1000) 
+        .animate( { left: "-=100"}, 300, function() {
    
-    //show totals from the game
-    $("#communication").html("<p>All done! Let's see how you did:</p>")
-    $("#communication").append("<p>Correct answers: " + correctAnswers + " </p>")
-    $("#communication").append("<p>Wrong answers: " + wrongAnswers + " </p>")
-    $("#communication").append("<p>Unanswered: " + timedOutAnswers + " </p>")
-    $("#start").text("Play again?");
-    $("#start").show();
+        //show totals from the game
+        $("#communication").html("<p>All done! Let's see how you did:</p>")
+        $("#communication").append("<p>Correct answers: " + correctAnswers + " </p>")
+        $("#communication").append("<p>Wrong answers: " + wrongAnswers + " </p>")
+        $("#communication").append("<p>Unanswered: " + timedOutAnswers + " </p>")
+        $("#start").text("Play again?");
+        $("#start").show();
+    });
 }
 
 window.onload = function() {

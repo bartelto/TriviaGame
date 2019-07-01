@@ -20,6 +20,7 @@ body {
 
 header {
     position: relative;
+    margin-bottom: 20px;
 }
 
 #logo {
@@ -29,7 +30,7 @@ header {
 }
 
 h1 {
-    font-size: 60px;        
+    font-size: 56px;        
     text-align: right;
     text-emphasis: bolder;
     bottom: 0px; 
@@ -40,6 +41,7 @@ h1 {
 
 .hide-logo {
     opacity: 0;
+    margin-bottom: 0;
 }
 
 #game-area {
@@ -56,7 +58,6 @@ h1 {
 #question {
     padding-bottom: 20px;
     padding-top: 20px;
-    border-bottom: solid 1px orange;
 }
 
 #answers-area {
@@ -65,6 +66,12 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+}
+
+.divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, grey 50%, transparent);
 }
 
 .answer, #start {   
@@ -154,13 +161,16 @@ strong {
 .accelerate5 { animation: accel5 3s ease-in-out 1 forwards; }
 .accelerate6 { animation: accel6 3s ease-in-out 1 forwards; }
 .accelerate7 { animation: accel7 3s ease-in-out 1 forwards; }
-.accelerate8 { animation: accel8 3s ease-in-out 1 forwards; }
+.accelerate8 { animation: accel8 4s ease-in-out 1 forwards; }
 
 .decelerate0 { animation: decel1 2s ease-in-out 1 forwards; }
 .decelerate1 { animation: decel2 3s ease-in-out 1 forwards; }
 .decelerate2 { animation: decel3 3s ease-in-out 1 forwards; }
-
-
+.decelerate3 { animation: decel4 3s ease-in-out 1 forwards; }
+.decelerate4 { animation: decel5 3s ease-in-out 1 forwards; }
+.decelerate5 { animation: decel6 3s ease-in-out 1 forwards; }
+.decelerate6 { animation: decel7 3s ease-in-out 1 forwards; }
+.decelerate7 { animation: decel8 3s ease-in-out 1 forwards; }
 
 @keyframes accel1 {
     0%  {   transform: rotate(-240deg);   }
@@ -231,6 +241,31 @@ strong {
 @keyframes decel3 {
     0%  {   transform: rotate(-150deg);   }
     100%{   transform: rotate(-180deg);   }
+}
+
+@keyframes decel4 {
+    0%  {   transform: rotate(-120deg);   }
+    100%{   transform: rotate(-150deg);   }
+}
+
+@keyframes decel5 {
+    0%  {   transform: rotate(-90deg);   }
+    100%{   transform: rotate(-120deg);   }
+}
+
+@keyframes decel6 {
+    0%  {   transform: rotate(-60deg);   }
+    100%{   transform: rotate(-90deg);   }
+}
+
+@keyframes decel7 {
+    0%  {   transform: rotate(-30deg);   }
+    100%{   transform: rotate(-60deg);   }
+}
+
+@keyframes decel8 {
+    0%  {   transform: rotate(10deg);   }
+    100%{   transform: rotate(-30deg);   }
 }
 
 @media screen and (max-width: 980px) {
