@@ -6,11 +6,12 @@ const questionTime = 100; // time question is shown, in seconds
 const answerTime = 3; // time answer is shown, in seconds
 let secondsLeft = 0; // counts down to zero
 let correctAnswers = 0;
+let stalledAnswers = 0; // a wrong answer when your speed is already 0
 let wrongAnswers = 0;
 let timedOutAnswers = 0;
-let audioDoor = new Audio("assets/audio/09 Delorean Time Machine Door.mp3");
-let audio88mph = new Audio("assets/audio/10 Delorean-Back To the Future (Impersonation).mp3");
+let audioStarting = new Audio("assets/audio/Delorean Starting.mp3");
 let audioEnd = new Audio("assets/audio/35 End Logo (Alternate).mp3");
+let audioDecel = new Audio("assets/audio/Decelerating.mp3");
 
 
 let questionBank = [
@@ -132,8 +133,9 @@ function startGame() {
     wrongAnswers = 0;
     timedOutAnswers = 0;
     questionIndex = 0;
-    audioDoor.play();
+ audioStarting.play();
     $("header")
+        .delay(1200)
         .animate( { left: "-=100"}, 300) 
         .animate( { left: "+=2000"}, 1000)
         .animate( { opacity: 0} )
@@ -146,8 +148,6 @@ function presentQuestion() {
     $("#needle").removeClass("hide-logo");
     $("body").addClass("full-opacity");
     
-    
-    console.log("presentQuestion");
     secondsLeft = questionTime;
     let order = randomOrder();
     $("#question").text(questionBank[questionIndex].question);
@@ -197,21 +197,39 @@ function updateTimer() {
 function checkAnswer () {
     clearTimeout(questionTimer);
 
-    console.log("checkAnswer"); 
+    //console.log("checkAnswer"); 
 
     //show speedometer needle
     $("body").addClass("full-opacity");
     $("#needle").removeClass();
 
     if ($(this).attr("data-correct") === 'true') {
-        console.log("Correct!");
+        //console.log("Correct!");
+        let audioAccel = new Audio(`assets/audio/Accelerating ${correctAnswers-wrongAnswers+1}.mp3`);
+        audioAccel.play();
+
         correctAnswers++;
+
+        if (correctAnswers-wrongAnswers === 1) { // 88mph
+            $(".division")
+                .delay(300)
+                .animate( { color: "green", bgColor: "#000000"}, 1000) 
+                .animate( { bgColor: "#ffffff"}, 1000) 
+                .animate( { bgColor: "#000000"}, 1000) 
+                .animate( { bgColor: "#0000ff"}, 1000);
+        }
+        
         $("#communication").text("Correct!");
         $("#needle").addClass("accelerate" + (correctAnswers-wrongAnswers));
     }
     else {
-        console.log("Wrong!");
-        wrongAnswers++;
+        //console.log("Wrong!");
+        if (wrongAnswers >= correctAnswers) { //car is "stalled" and can't go any slower
+            stalledAnswers++;
+        } else {
+            wrongAnswers++;
+            audioDecel.play();
+        }
         $("#communication").html("Wrong! The correct answer is <strong>" + $('.answer[data-correct="true"]').text() + "</strong>.");
         if (correctAnswers >= wrongAnswers) {
             $("#needle").addClass("decelerate" + (correctAnswers-wrongAnswers));
@@ -227,15 +245,9 @@ function checkAnswer () {
 
 function showAnswer() {
     
-    $('.answer[data-correct="true"]').addClass("correct");
+    $('.answer[data-correct="true"]').addClass("correct");    
 
-    if (correctAnswers - wrongAnswers === 8) {
-        // reached 88 miles per hour!
-        audio88mph.play();
-    }
-    
-
-    if (true || questionIndex === questionBank.length-1) {
+    if (questionIndex === questionBank.length-1) {
         setTimeout(showTotals, answerTime*1000);
     } else {
         questionIndex++; //next question
@@ -260,10 +272,18 @@ function showTotals() {
         .animate( { left: "-=100"}, 300, function() {
    
         //show totals from the game
-        $("#communication").html("<p>All done! Let's see how you did:</p>")
-        $("#communication").append("<p>Correct answers: " + correctAnswers + " </p>")
-        $("#communication").append("<p>Wrong answers: " + wrongAnswers + " </p>")
-        $("#communication").append("<p>Unanswered: " + timedOutAnswers + " </p>")
+        let endMessage = "";
+        if (correctAnswers - wrongAnswers >= 8) {
+            endMessage = "Great Scott! You went 88 mph and traveled back in time!";
+        } else {
+            endMessage = "Disappointing. You've gotta drive faster to activate the flux capacitor!";
+        }
+
+        $("#communication").html(`<p>${endMessage}</p>`);
+        $("#communication").append("<p>Here's how you did:</p>");
+        $("#communication").append(`<p>Correct answers: ${correctAnswers} </p>`);
+        $("#communication").append(`<p>Wrong answers: ${wrongAnswers + stalledAnswers}</p>`);
+        $("#communication").append(`<p>Unanswered: ${timedOutAnswers}</p>`);
         $("#start").text("Play again?");
         $("#start").show();
     });

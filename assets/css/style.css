@@ -112,7 +112,9 @@ strong {
     text-transform: uppercase;
 }
 
-
+p {
+    line-height: 1.5em;
+}
 
 #needle {
     position: relative;
@@ -161,7 +163,7 @@ strong {
 .accelerate5 { animation: accel5 3s ease-in-out 1 forwards; }
 .accelerate6 { animation: accel6 3s ease-in-out 1 forwards; }
 .accelerate7 { animation: accel7 3s ease-in-out 1 forwards; }
-.accelerate8 { animation: accel8 4s ease-in-out 1 forwards; }
+.accelerate8 { animation: accel8 5s ease-in-out 1 forwards; }
 
 .decelerate0 { animation: decel1 2s ease-in-out 1 forwards; }
 .decelerate1 { animation: decel2 3s ease-in-out 1 forwards; }
@@ -225,7 +227,7 @@ strong {
     0%  {   transform: rotate(-30deg);   }
     30% {   transform: rotate(0deg);     }
     60% {   transform: rotate(-10deg);   }
-    100%{   transform: rotate(10deg);    }
+    100%{   transform: rotate(20deg);    }
 } 
 
 @keyframes decel1 {
