@@ -7,7 +7,7 @@ body {
     width: 720px;       
     margin-left: auto;      
     margin-right: auto; 
-    font-family: "Didact Gothic", sans-serif;   
+    font-family: "Roboto Condensed", sans-serif;   
     position: relative   
 }
 
@@ -48,16 +48,26 @@ h1 {
     background-color:rgb(0,0,0,0.8);
 }
 
-#communication,
-#question {     
+#communication {
     text-align: center;
     font-size: 24px;
-    line-height: 24px;
+    line-height: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#communication p {     
+    text-align: center;
+    font-size: 24px;
+    line-height: 1.4em;
 }
 
 #question {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 28px;
+    line-height: 1.2em;
 }
 
 #answers-area {
@@ -72,17 +82,24 @@ h1 {
     height: 1px;
     width: 100%;
     background: linear-gradient(to right, transparent, grey 50%, transparent);
+    margin-bottom: 10px;
 }
 
 .answer, #start {   
     text-align: center;
-    font-size: 28px;
+    font-size: 36px;
     height: 48px;
     min-width:  250px;
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
     line-height: 45px;
+    font-weight: bold;
+}
+
+#start {
+    margin-top: 20px;
+    text-transform: uppercase;
 }
 
 .clickable {
@@ -98,7 +115,7 @@ h1 {
     /*background-image:linear-gradient(red, yellow);
     color: black;*/
     cursor: pointer;
-    font-size: 36px;    
+    font-size: 40px;    
     color: yellow;
     line-height: 42px;
 }   
@@ -112,8 +129,8 @@ strong {
     text-transform: uppercase;
 }
 
-p {
-    line-height: 1.5em;
+em {
+    font-style: italic;
 }
 
 #needle {
@@ -162,8 +179,10 @@ p {
 .accelerate4 { animation: accel4 3s ease-in-out 1 forwards; }
 .accelerate5 { animation: accel5 3s ease-in-out 1 forwards; }
 .accelerate6 { animation: accel6 3s ease-in-out 1 forwards; }
-.accelerate7 { animation: accel7 3s ease-in-out 1 forwards; }
-.accelerate8 { animation: accel8 5s ease-in-out 1 forwards; }
+.accelerate7 { animation: accel7 6s ease-in-out 1 forwards; }
+.accelerate8 { animation: accel8 7s ease-in-out 1 forwards; }
+.accelerate9 { animation: accel9 3s ease-in-out 1 forwards; }
+.accelerate10 { animation: accel10 3s ease-in-out 1 forwards; }
 
 .decelerate0 { animation: decel1 2s ease-in-out 1 forwards; }
 .decelerate1 { animation: decel2 3s ease-in-out 1 forwards; }
@@ -173,6 +192,8 @@ p {
 .decelerate5 { animation: decel6 3s ease-in-out 1 forwards; }
 .decelerate6 { animation: decel7 3s ease-in-out 1 forwards; }
 .decelerate7 { animation: decel8 3s ease-in-out 1 forwards; }
+.decelerate8 { animation: decel9 3s ease-in-out 1 forwards; }
+.decelerate9 { animation: decel10 3s ease-in-out 1 forwards; }
 
 @keyframes accel1 {
     0%  {   transform: rotate(-240deg);   }
@@ -230,6 +251,16 @@ p {
     100%{   transform: rotate(20deg);    }
 } 
 
+@keyframes accel9 {
+    0%  {   transform: rotate(20deg);   }
+    100%{   transform: rotate(30deg);    }
+} 
+
+@keyframes accel10 {
+    0%  {   transform: rotate(30deg);   }
+    100%{   transform: rotate(40deg);    }
+} 
+
 @keyframes decel1 {
     0%  {   transform: rotate(-210deg);   }
     100%{   transform: rotate(-240deg);   }
@@ -266,6 +297,16 @@ p {
 }
 
 @keyframes decel8 {
+    0%  {   transform: rotate(10deg);   }
+    100%{   transform: rotate(-30deg);   }
+}
+
+@keyframes decel9 {
+    0%  {   transform: rotate(10deg);   }
+    100%{   transform: rotate(-30deg);   }
+}
+
+@keyframes decel10 {
     0%  {   transform: rotate(10deg);   }
     100%{   transform: rotate(-30deg);   }
 }

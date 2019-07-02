@@ -46,7 +46,7 @@ let questionBank = [
             ]
     },
     {
-        question: "What is the name of Marty's jailbird uncle, who's still a baby back in 1955?",
+        question: "Marty's jailbird uncle is still a baby back in 1955. What is his first name?",
         answers: 
             [
                 "*Joey",
@@ -56,7 +56,7 @@ let questionBank = [
             ]
     },
     {
-        question: "Who directed Back to the Future?",
+        question: "Who directed <em>Back to the Future</em>?",
         answers: 
             [
                 "*Robert Zemekis",
@@ -124,22 +124,29 @@ function initGame() {
     $("#needle").addClass("hide-logo");
     //$("#needle").hide();
     //$("header").hide();
+    $("#communication").html("<p>Take a joyride in Doc Brown's DeLorean! Each correct answer helps you push the accelerator a bit further.</p>")
 }
 
 function startGame() {
-    $("#start").hide();
-
     correctAnswers = 0;
     wrongAnswers = 0;
     timedOutAnswers = 0;
     questionIndex = 0;
- audioStarting.play();
+    audioStarting.play();
+
+    $("#communication, #start")
+        .animate( { opacity: 0}, 1000, function() {
+            $("#communication, #start").hide()
+                .animate( { opacity: 1}); 
+         });
+
     $("header")
         .delay(1200)
         .animate( { left: "-=100"}, 300) 
         .animate( { left: "+=2000"}, 1000)
         .animate( { opacity: 0} )
         .animate( { left: "-=1900"}, presentQuestion);
+        
 
 }
 
@@ -147,10 +154,11 @@ function presentQuestion() {
     $("header").addClass("hide-logo");
     $("#needle").removeClass("hide-logo");
     $("body").addClass("full-opacity");
-    
+
     secondsLeft = questionTime;
     let order = randomOrder();
-    $("#question").text(questionBank[questionIndex].question);
+    
+    $("#question").html(questionBank[questionIndex].question);
 
     // set up answer buttons
     $(".answer").each(function(index, element) {
@@ -163,11 +171,10 @@ function presentQuestion() {
     $(".answer").addClass("clickable"); // enable hover effects
     $("#answers-area").show();
 
+    $("#communication").show();
     $("#communication").text("Time remaining: " + secondsLeft + " seconds");
     questionTimer = setInterval(updateTimer, 1000);
     
-
-
 }
 
 function randomOrder() {
