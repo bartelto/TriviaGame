@@ -2,7 +2,7 @@
 
 let questionIntervalId = ""; // for canceling the timer once the player selects an answer
 let questionIndex = 0; // for tracking which question we're on
-const questionTime = 100; // time question is shown, in seconds
+const questionTime = 10; // time question is shown, in seconds
 const answerTime = 3; // time answer is shown, in seconds
 let audioDuration = 0;
 let secondsLeft = 0; // counts down to zero
@@ -265,7 +265,6 @@ function checkAnswer () {
 }
 
 function showAnswer() {
-    console.log("audioDuration:" + audioDuration );
     $('.answer[data-correct="true"]').addClass("correct");    
 
     if (questionIndex === questionBank.length-1) {
