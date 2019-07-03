@@ -109,13 +109,6 @@ h1 {
     transition-duration: 0.3s;
 }
 
-#start:hover,
-.clickable:hover {
-    cursor: pointer;
-    font-size: 40px;    
-    color: yellow;
-    line-height: 42px;
-}   
 
 
 .correct {
@@ -393,6 +386,17 @@ em {
     }
 }
 
+@media (hover: hover) {
+    
+    #start:hover,
+    .clickable:hover {
+        cursor: pointer;
+        font-size: 40px;    
+        color: yellow;
+        line-height: 42px;
+    }   
+    }
+/*
 @media (hover: none) {
     #start,
     .clickable:hover {
@@ -400,3 +404,4 @@ em {
         color: inherit;
     }
 }
+&/
