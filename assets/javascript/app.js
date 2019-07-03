@@ -202,7 +202,7 @@ function updateTimer() {
     if (secondsLeft <= 0) {
         clearInterval(questionTimer); // stop timer countdown
         timedOutAnswers++;
-        $('#communication').text("Out of time! The correct answer is " + $('.answer[data-correct="true"]').text() + ".");
+        $('#communication').html("Out of time! The correct answer is <strong>" + $('.answer[data-correct="true"]').text() + "</strong>.");
   
         showAnswer();
     }
