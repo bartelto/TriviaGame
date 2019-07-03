@@ -351,10 +351,19 @@ em {
         background-size: 650px;
     }
 
-
-
     h1 {
         font-size: 30px;
+    }
+
+    #communication,
+    #communication p, 
+    #question {
+        font-size: 20px;
+    }
+
+    .answer {
+        font-size: 24px;
+        height: 40px;
     }
 
     #needle {
