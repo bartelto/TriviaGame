@@ -4,14 +4,17 @@ let questionIntervalId = ""; // for canceling the timer once the player selects 
 let questionIndex = 0; // for tracking which question we're on
 const questionTime = 100; // time question is shown, in seconds
 const answerTime = 3; // time answer is shown, in seconds
+let audioDuration = 0;
 let secondsLeft = 0; // counts down to zero
 let correctAnswers = 0;
 let stalledAnswers = 0; // a wrong answer when your speed is already 0
 let wrongAnswers = 0;
 let timedOutAnswers = 0;
+let audioWontStart = new Audio("assets/audio/Delorean Won't Start.mp3");
 let audioStarting = new Audio("assets/audio/Delorean Starting.mp3");
 let audioEnd = new Audio("assets/audio/35 End Logo (Alternate).mp3");
 let audioDecel = new Audio("assets/audio/Decelerating.mp3");
+let audAccel = [];
 
 
 let questionBank = [
@@ -118,6 +121,11 @@ let questionBank = [
 ];
 
 function initGame() {
+    // load acceleration sound effects
+    for (let i=1; i<11; i++) {
+        audAccel.push(new Audio(`assets/audio/Accelerating ${i}.mp3`))
+    }
+    
     $("#answers-area").hide();
     $("#start").addClass("clickable");
     $("#start").show();
@@ -147,7 +155,6 @@ function startGame() {
         .animate( { opacity: 0} )
         .animate( { left: "-=1900"}, presentQuestion);
         
-
 }
 
 function presentQuestion() {
@@ -212,18 +219,22 @@ function checkAnswer () {
 
     if ($(this).attr("data-correct") === 'true') {
         //console.log("Correct!");
-        let audioAccel = new Audio(`assets/audio/Accelerating ${correctAnswers-wrongAnswers+1}.mp3`);
-        audioAccel.play();
+
+        audAccel[correctAnswers-wrongAnswers].play();
+        audioDuration = audAccel[correctAnswers-wrongAnswers].duration;
 
         correctAnswers++;
 
-        if (correctAnswers-wrongAnswers === 1) { // 88mph
-            $(".division")
-                .delay(300)
-                .animate( { color: "green", bgColor: "#000000"}, 1000) 
-                .animate( { bgColor: "#ffffff"}, 1000) 
-                .animate( { bgColor: "#000000"}, 1000) 
-                .animate( { bgColor: "#0000ff"}, 1000);
+        if (correctAnswers-wrongAnswers === 8) { // 88mph
+            console.log("in here");
+            setTimeout(flash, 6500);
+
+            function flash() {
+                $(".overlay")
+                    .show()
+                    .delay(200)
+                    .fadeOut();
+            }
         }
         
         $("#communication").text("Correct!");
@@ -233,12 +244,15 @@ function checkAnswer () {
         //console.log("Wrong!");
         if (wrongAnswers >= correctAnswers) { //car is "stalled" and can't go any slower
             stalledAnswers++;
+            audioWontStart.play();
+            audioDuration = audioWontStart.duration;
         } else {
             wrongAnswers++;
             audioDecel.play();
+            audioDuration = audioDecel.duration;
         }
         $("#communication").html("Wrong! The correct answer is <strong>" + $('.answer[data-correct="true"]').text() + "</strong>.");
-        if (correctAnswers >= wrongAnswers) {
+        if (correctAnswers >= wrongAnswers && correctAnswers > 0) {
             $("#needle").addClass("decelerate" + (correctAnswers-wrongAnswers));
         }
     }
@@ -251,14 +265,14 @@ function checkAnswer () {
 }
 
 function showAnswer() {
-    
+    console.log("audioDuration:" + audioDuration );
     $('.answer[data-correct="true"]').addClass("correct");    
 
     if (questionIndex === questionBank.length-1) {
-        setTimeout(showTotals, answerTime*1000);
+        setTimeout(showTotals, Math.max(answerTime,audioDuration)*1000);
     } else {
         questionIndex++; //next question
-        setTimeout(presentQuestion, answerTime*1000);
+        setTimeout(presentQuestion, Math.max(answerTime,audioDuration)*1000);
     }
 }
 
@@ -281,7 +295,7 @@ function showTotals() {
         //show totals from the game
         let endMessage = "";
         if (correctAnswers - wrongAnswers >= 8) {
-            endMessage = "Great Scott! You went 88 mph and traveled back in time!";
+            endMessage = "Great Scott! You hit 88 mph and traveled back in time!";
         } else {
             endMessage = "Disappointing. You've gotta drive faster to activate the flux capacitor!";
         }
@@ -301,7 +315,16 @@ window.onload = function() {
     //$(".answer").click(checkAnswer);
 }
 
+$(".overlay").click(function () {
+    console.log ("click");
 
+    for (let i=0; i<10; i++) {
+    $(".overlay")
+        .animate( { backgroundColor: "white"}, 80)
+        .animate( { backgroundColor: "transparent"}, 80);
+    }
+
+})
 
 if ($(document).ready()) {
   

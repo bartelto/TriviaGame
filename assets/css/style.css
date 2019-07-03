@@ -111,14 +111,12 @@ h1 {
 
 #start:hover,
 .clickable:hover {
-    
-    /*background-image:linear-gradient(red, yellow);
-    color: black;*/
     cursor: pointer;
     font-size: 40px;    
     color: yellow;
     line-height: 42px;
 }   
+
 
 .correct {
     font-size: 36px;
@@ -131,6 +129,19 @@ strong {
 
 em {
     font-style: italic;
+}
+
+.overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white; /* Black background with opacity */
+    z-index: 2;
 }
 
 #needle {
@@ -297,18 +308,18 @@ em {
 }
 
 @keyframes decel8 {
-    0%  {   transform: rotate(10deg);   }
+    0%  {   transform: rotate(20deg);   }
     100%{   transform: rotate(-30deg);   }
 }
 
 @keyframes decel9 {
-    0%  {   transform: rotate(10deg);   }
-    100%{   transform: rotate(-30deg);   }
+    0%  {   transform: rotate(30deg);   }
+    100%{   transform: rotate(20deg);   }
 }
 
 @keyframes decel10 {
-    0%  {   transform: rotate(10deg);   }
-    100%{   transform: rotate(-30deg);   }
+    0%  {   transform: rotate(40deg);   }
+    100%{   transform: rotate(30deg);   }
 }
 
 @media screen and (max-width: 980px) {
