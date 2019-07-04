@@ -39,11 +39,6 @@ h1 {
 
 }
 
-.hide-logo {
-    opacity: 0;
-    margin-bottom: 0;
-}
-
 #game-area {
     background-color:rgb(0,0,0,0.8);
 }
@@ -342,10 +337,6 @@ em {
     .full-opacity { 
         width: 100%;
         background-size: 650px;
-    }
-
-    .hide-logo {
-        margin-bottom: 60px;
     }
 
     h1 {

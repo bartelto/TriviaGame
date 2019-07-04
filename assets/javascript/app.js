@@ -14,7 +14,7 @@ let audioWontStart = new Audio("assets/audio/Delorean Won't Start.mp3");
 let audioStarting = new Audio("assets/audio/Delorean Starting.mp3");
 let audioEnd = new Audio("assets/audio/35 End Logo (Alternate).mp3");
 let audioDecel = new Audio("assets/audio/Decelerating.mp3");
-let audAccel = [];
+let audioAccel = [];
 
 
 let questionBank = [
@@ -123,13 +123,14 @@ let questionBank = [
 function initGame() {
     // load acceleration sound effects
     for (let i=1; i<11; i++) {
-        audAccel.push(new Audio(`assets/audio/Accelerating ${i}.mp3`))
+        audioAccel.push(new Audio(`assets/audio/Accelerating ${i}.mp3`))
     }
     
     $("#answers-area").hide();
     $("#start").addClass("clickable");
     $("#start").show();
-    $("#needle").addClass("hide-logo");
+
+    $("#needle").css("opacity", 0);
     //$("#needle").hide();
     //$("header").hide();
     $("#communication").html("<p>Take a joyride in Doc Brown's DeLorean! Each correct answer helps you push the accelerator a bit further.</p>")
@@ -138,34 +139,44 @@ function initGame() {
 function startGame() {
     correctAnswers = 0;
     wrongAnswers = 0;
+    stalledAnswers = 0;
     timedOutAnswers = 0;
     questionIndex = 0;
     audioStarting.play();
 
     $("#communication, #start")
         .animate( { opacity: 0}, 1000, function() {
-            $("#communication, #start").hide()
+            $("#communication, #start")
+                .hide()
                 .animate( { opacity: 1}); 
          });
 
+    // slide logo header off the screen to the right     
     $("header")
         .delay(1200)
         .animate( { left: "-=100"}, 300) 
         .animate( { left: "+=2000"}, 1000)
         .animate( { opacity: 0} )
         .animate( { left: "-=1900"}, presentQuestion);
-        
+
+
+    $("#needle").removeClass();
+    //
+    
+
 }
 
-function presentQuestion() {
-    $("header").addClass("hide-logo");
-    $("#needle").removeClass("hide-logo");
+function presentQuestion() {    
+
+    $("header").css("opacity", 0);
+    $("#needle").css("opacity", 1);
     $("body").addClass("full-opacity");
 
     secondsLeft = questionTime;
     let order = randomOrder();
     
     $("#question").html(questionBank[questionIndex].question);
+    $("#question").show();
 
     // set up answer buttons
     $(".answer").each(function(index, element) {
@@ -180,8 +191,7 @@ function presentQuestion() {
 
     $("#communication").show();
     $("#communication").text("Time remaining: " + secondsLeft + " seconds");
-    questionTimer = setInterval(updateTimer, 1000);
-    
+    questionIntervalId = setInterval(updateTimer, 1000);
 }
 
 function randomOrder() {
@@ -196,22 +206,30 @@ function randomOrder() {
     return newOrder;
 }
 
-function updateTimer() {
+function updateTimer() { // runs every second while waiting for an answer to be chosen
+    //console.log("updateTimer " + secondsLeft);
     secondsLeft--;
     $("#communication").text("Time remaining: " + secondsLeft + " seconds");
     if (secondsLeft <= 0) {
-        clearInterval(questionTimer); // stop timer countdown
+        clearInterval(questionIntervalId); // stop timer countdown
         timedOutAnswers++;
         $('#communication').html("Out of time! The correct answer is <strong>" + $('.answer[data-correct="true"]').text() + "</strong>.");
   
+        // disable answer buttons
+        $(".answer").off("click");
+        $(".answer").removeClass("clickable"); // disable hover effects
+
         showAnswer();
     }
 }
 
-function checkAnswer () {
-    clearTimeout(questionTimer);
+function checkAnswer () { // runs when an answer is clicked
 
-    //console.log("checkAnswer"); 
+    clearInterval(questionIntervalId); // stop timer countdown
+
+    // disable answer buttons
+    $(".answer").off("click");
+    $(".answer").removeClass("clickable"); // disable hover effects
 
     //show speedometer needle
     $("body").addClass("full-opacity");
@@ -220,13 +238,12 @@ function checkAnswer () {
     if ($(this).attr("data-correct") === 'true') {
         //console.log("Correct!");
 
-        audAccel[correctAnswers-wrongAnswers].play();
-        audioDuration = audAccel[correctAnswers-wrongAnswers].duration;
+        audioAccel[correctAnswers-wrongAnswers].play();
+        audioDuration = audioAccel[correctAnswers-wrongAnswers].duration;
 
         correctAnswers++;
 
         if (correctAnswers-wrongAnswers === 8) { // 88mph
-            console.log("in here");
             setTimeout(flash, 6500);
 
             function flash() {
@@ -257,9 +274,7 @@ function checkAnswer () {
         }
     }
 
-    // disable answer buttons
-    $(".answer").off("click");
-    $(".answer").removeClass("clickable"); // disable hover effects
+    
     
     showAnswer();
 }
@@ -279,10 +294,8 @@ function showTotals() {
     audioEnd.play();
 
     // clear the last question
-    $("#question").empty();
-    $("#answers-area").hide();
-    $("header").removeClass("hide-logo");
-    $("#needle").addClass("hide-logo");
+    $("#communication, #question, #answers-area").fadeOut(1000);
+    $("#needle").animate( { opacity: 0 });
     $("body").removeClass("full-opacity");
 
     $("header")
@@ -299,13 +312,14 @@ function showTotals() {
             endMessage = "Disappointing. You've gotta drive faster to activate the flux capacitor!";
         }
 
+        $("#communication").fadeIn(1000);
         $("#communication").html(`<p>${endMessage}</p>`);
         $("#communication").append("<p>Here's how you did:</p>");
         $("#communication").append(`<p>Correct answers: ${correctAnswers} </p>`);
         $("#communication").append(`<p>Wrong answers: ${wrongAnswers + stalledAnswers}</p>`);
         $("#communication").append(`<p>Unanswered: ${timedOutAnswers}</p>`);
         $("#start").text("Play again?");
-        $("#start").show();
+        $("#start").fadeIn(1000);
     });
 }
 
@@ -315,7 +329,6 @@ window.onload = function() {
 }
 
 $(".overlay").click(function () {
-    console.log ("click");
 
     for (let i=0; i<10; i++) {
     $(".overlay")
